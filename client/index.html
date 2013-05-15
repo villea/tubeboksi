@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+     <script type="text/javascript" src="js/jquery.min.js"></script>
+     <script type="text/javascript" src="js/json2.js"></script>
+     <script type="text/javascript" src="js/underscore-min.js"></script>
+     <script type="text/javascript" src="js/backbone-min.js"></script>
+</head>
+<body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+  
+
+  var socket = io.connect('http://localhost');
+ 
+  
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script>
+</body>
+</html>
