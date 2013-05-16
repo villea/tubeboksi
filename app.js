@@ -1,7 +1,8 @@
 var express = require('express')
   , app = express()
   , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
+  , io = require('socket.io').listen(server)
+  , playlist = require('./playlist');
 
 server.listen(80);
 
@@ -14,8 +15,17 @@ app.get('/', function (req, res) {
 
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+  socket.emit('current', playlist.current());
+  
+  socket.on('add', function (item){
+	  console.log('add '+item);
+	  playlist.add(item);
   });
+  
+  setInterval(function (){
+	  console.log('pop');
+	  playlist.pop();
+	  io.sockets.emit('current',playlist.current());
+  },10000);
+  
 });

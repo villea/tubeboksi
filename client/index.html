@@ -7,17 +7,33 @@
      <script type="text/javascript" src="js/backbone-min.js"></script>
 </head>
 <body>
+
+<script id="item_tmpl" type="template/text">
+<iframe class="snd" src="<%= tubeUrl %>?autoplay=1" />'
+</script>
+
+<div id="item"></div>
+
+<div id="newItem">
+  <input type="text" id="tubeUrl"></input>
+  <button id="add"></button>
+</div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script>
-
-  
 
   var socket = io.connect('http://localhost');
  
   
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
+  
+  $('#add').click(function (){
+	  socket.emit('add',$('#tubeUrl').val());
+  })
+  
+  socket.on('current', function (data) {
+      var tmpl =_.template($('#item_tmpl').html());
+      $('#item').html(tmpl({tubeUrl: data}));
+      console.log(data);
   });
 </script>
 </body>
