@@ -9,8 +9,8 @@
 <body>
 
 <script id="item_tmpl" type="template/text">
-<% if (tubeUrl) { %>
-<iframe class="snd" src="<%= tubeUrl %>?autoplay=1" />'
+<% if (tubeId) { %>
+<iframe class="snd" src="http://www.youtube.com/embed/<%= tubeId %>?autoplay=1" />'
 <% } else { %>
 <p>No video</p>
 <% } %>
@@ -37,7 +37,7 @@
   
   socket.on('current', function (data) {
       var tmpl =_.template($('#item_tmpl').html());
-      $('#item').html(tmpl({tubeUrl: data}));
+      $('#item').html(tmpl({tubeId: data}));
       console.log("current "+ data);
   });
 </script>

@@ -9,6 +9,7 @@ server.listen(80);
 app.use('/js', express.static(__dirname + '/client/js'));
 
 app.get('/', function (req, res) {
+  res.setHeader("X-Frame-Options","GOFORIT");
   res.sendfile(__dirname + '/client/index.html');
 });
 
