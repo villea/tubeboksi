@@ -9,7 +9,11 @@
 <body>
 
 <script id="item_tmpl" type="template/text">
+<% if (tubeUrl) { %>
 <iframe class="snd" src="<%= tubeUrl %>?autoplay=1" />'
+<% } else { %>
+<p>No video</p>
+<% } %>
 </script>
 
 <div id="item"></div>
@@ -28,12 +32,13 @@
   
   $('#add').click(function (){
 	  socket.emit('add',$('#tubeUrl').val());
+	  $('#tubeUrl').val('');
   })
   
   socket.on('current', function (data) {
       var tmpl =_.template($('#item_tmpl').html());
       $('#item').html(tmpl({tubeUrl: data}));
-      console.log(data);
+      console.log("current "+ data);
   });
 </script>
 </body>

@@ -24,8 +24,8 @@ io.sockets.on('connection', function (socket) {
   
   setInterval(function (){
 	  console.log('pop');
-	  playlist.pop();
 	  io.sockets.emit('current',playlist.current());
-  },10000);
+	  playlist.pop();
+  },50000);
   
 });
